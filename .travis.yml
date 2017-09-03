@@ -1,0 +1,25 @@
+language: cpp
+sudo: required
+dist: trusty
+matrix:
+  include:
+    - os: osx
+      env: ARCH="x86_64"
+      osx_image: xcode8
+notifications:
+  email: false
+script:
+  - make
+  - make test
+before_deploy:
+  - make package
+deploy:
+  provider: releases
+  api_key:
+    secure: O+g+ArGRA+XhDbn2DHoNVdQbIkuuMGx4J6dJytF+uV532NKn3wNA7VIBOJEe8JSxtOfMDty0I3LUcaFKDoHXE0x6TimXmWAHj+wiiZw5JdPufqXpalW6BL0Tp+oGFd4XMaTeQf0QO+FzQlrOTRGw9SoNyYywG+5mEQ9gUUq2OyxKo4qG8lnWJ1EuqXUHCjmxgxx/DHqO5d2mxDh7NEsoKbumbsrMNf0jSkQCH1Sl1d6nV/XltzVYcKa7Hy6XljwaZEps5V8B8QaQ2GH0DE90uJ8c/G65JQ3CLAxX6EQunWigB0cJ2GOn9pl3Q3nT1XzC/Dev1AxUz8csd8lulLcB7we9FhMb2jY47kIIrTjNywnPl8W2ZtfLCM4DFcsMXhdMxlcMUupbUnk2xvp7JIBvOrqjnLn8dDUZpCcHdGNxVj4qwImaLhZKyyoJQK5xuHIfVh7a1KB1DHhO6SzxRtREzMOVYRAzBpSIiLMSn7GG+3pdVZMLnpVcc8vwTn5cTgUFH5uft3MWUb+nWAU7Pw4NlJ7pMsf8oSvkgoc7AiD1HVElw19yJsMyI1y60htDaYx6zRlVPS+aXInQHlWYV26ymMdw8MOgr3IN3b4NDJbh0yV1hyHAh6EXk9ewHVdLudlOiuG4VY93V52HwTr5v/K4wD5kAsRaISPsHXFoylpfT2Q=
+  file_glob: true
+  file: "$TRAVIS_BUILD_DIR/libopenspecfun-*.tar.gz"
+  skip_cleanup: true
+  on:
+    repo: ararslan/openspecfun-builder
+    tags: true

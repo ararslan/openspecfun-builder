@@ -1,0 +1,35 @@
+version: 2
+jobs:
+  x86_64:
+    docker:
+      - image: staticfloat/julia_workerbase:centos6_9-x64
+        environment:
+          ARCH: x86_64
+    steps: &steps
+      - checkout
+      - run:
+          name: Build
+          command: make
+      - run:
+          name: Test
+          command: make test
+      - run:
+          name: Package
+          command: |
+            make package
+            mkdir -p /tmp
+            cp libopenspecfun-*.tar.gz /tmp
+      - store_artifacts:
+          path: /tmp
+  i686:
+    docker:
+      - image: staticfloat/julia_workerbase:centos6_9-x86
+        environment:
+          ARCH: i686
+    steps: *steps
+workflows:
+  version: 2
+  linux-builds:
+    jobs:
+      - x86_64
+      - i686

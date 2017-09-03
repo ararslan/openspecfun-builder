@@ -1,0 +1,31 @@
+environment:
+  matrix:
+    - ARCH: "i686"
+    - ARCH: "x86_64"
+branches:
+  only:
+    - master
+skip_commits:
+  message: /\[av skip\]/
+notifications:
+  - email: false
+    on_build_success: false
+    on_build_failure: false
+    on_build_status_changed: false
+shallow_clone: true
+clone_depth: 5
+init:
+  - git config --global core.autocrlf input
+  - ps: "[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12"
+install:
+  - appveyor DownloadFile https://cygwin.com/setup-x86_64.exe -FileName C:\projects\cygwin-setup-x86_64.exe
+  - C:\projects\cygwin-setup-x86_64.exe -q -g -P make,mingw64-i686-gcc-core,mingw64-x86_64-gcc-core
+  - set PATH="C:\Program Files\7-Zip"
+build_script:
+  - C:\cygwin64\bin\sh -lc "make -C $(cygpath $APPVEYOR_BUILD_FOLDER)"
+after_build:
+  - C:\cygwin64\bin\sh -lc "make -C $(cygpath $APPVEYOR_BUILD_FOLDER) package"
+test_script:
+  - C:\cygwin64\bin\sh -lc "make -C $(cygpath $APPVEYOR_BUILD_FOLDER) test"
+artifacts:
+  - path: libopenspecfun-*.zip
