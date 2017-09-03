@@ -8,6 +8,9 @@ matrix:
       osx_image: xcode8
 notifications:
   email: false
+before_script:
+  - brew update
+  - brew install gcc
 script:
   - make
   - make test

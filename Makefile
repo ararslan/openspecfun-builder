@@ -131,7 +131,7 @@ else ifeq ($(OS),Darwin)
 	-rm -rf $(ROOTDIR)/juliamnt
 else
 	-mkdir -p $(JULIADIR)
-	curl -sL --retry 7 $(JULIA_URL) | $(TAR) -C $(JULIADIR) -xzf --strip-components=1 -
+	curl -sL --retry 7 $(JULIA_URL) | $(TAR) -C $(JULIADIR) -x -z --strip-components=1 -f -
 endif
 
 $(LIBDIR)/libopenlibm.$(SHLIB_EXT): | $(LIBDIR) $(JULIADIR)
