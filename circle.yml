@@ -5,6 +5,7 @@ jobs:
       - image: staticfloat/julia_workerbase:centos6_9-x64
         environment:
           ARCH: x86_64
+          CC: gcc
     steps: &steps
       - checkout
       - run:
@@ -26,6 +27,7 @@ jobs:
       - image: staticfloat/julia_workerbase:centos6_9-x86
         environment:
           ARCH: i686
+          CC: gcc
     steps: *steps
 workflows:
   version: 2

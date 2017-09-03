@@ -13,9 +13,8 @@ before_script:
   - brew install gcc
 script:
   - make
-  - make test
-before_deploy:
   - make package
+  - make test
 deploy:
   provider: releases
   api_key:
