@@ -15,13 +15,13 @@ OPENLIBM_VERS := 0.5.4
 ifeq ($(OS),Windows_NT)
 override OS := WINNT
 JULIA_EXE := /cygdrive/c/projects/julia/bin/julia
+JULIA_SHLIB_DIR := /cygdrive/c/projects/julia/lib/julia
 else
 override OS := $(shell uname)
 JULIA_EXE := $(JULIADIR)/bin/julia
-endif
-
 # Delay expansion here since Julia might not have been downloaded yet
 JULIA_SHLIB_DIR = $(shell $(JULIA_EXE) -e "println(JULIA_HOME)")/../lib/julia
+endif
 
 ifeq ($(ARCH),i686)
 URL_ARCH := x86

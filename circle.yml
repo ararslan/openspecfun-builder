@@ -11,7 +11,7 @@ jobs:
       - run:
           name: Build
           command: |
-            yum install -y patchelf
+            #yum install -y patchelf
             make
       - run:
           name: Package
