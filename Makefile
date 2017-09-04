@@ -14,7 +14,7 @@ OPENLIBM_VERS := 0.5.4
 
 ifeq ($(OS),Windows_NT)
 override OS := WINNT
-JULIA_EXE := C:\projects\julia-binary.exe
+JULIA_EXE := /cygdrive/c/projects/julia/bin/julia
 else
 override OS := $(shell uname)
 JULIA_EXE := $(JULIADIR)/bin/julia
@@ -159,7 +159,8 @@ $(SRCDIR)/Makefile: $(SRCDIR)/openspecfun-$(OPENSPECFUN_VERS).tar.gz
 
 $(LIBDIR)/libopenspecfun.$(SHLIB_EXT): $(SRCDIR)/Makefile $(INCLUDEDIR)/openlibm/openlibm.h $(LIBDIR)/libopenlibm.$(SHLIB_EXT)
 	$(MAKE) -C $(dir $<) install $(OPENSPECFUN_FLAGS) $(MAKE_FLAGS)
-ifneq ($(OS),WINNT)
+ifeq ($(OS),Darwin)
+	# FIXME: This was `ifneq ($(OS),WINNT)`; Linux image doesn't have patchelf
 	$(ROOTDIR)/fixup-libgfortran.sh -v $(dir $@)
 endif
 
