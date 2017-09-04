@@ -10,16 +10,18 @@ jobs:
       - checkout
       - run:
           name: Build
-          command: make
-      - run:
-          name: Test
-          command: make test
+          command: |
+            sudo yum install -y patchelf
+            make
       - run:
           name: Package
           command: |
             make package
             mkdir -p /tmp
             cp libopenspecfun-*.tar.gz /tmp
+      - run:
+          name: Test
+          command: make test
       - store_artifacts:
           path: /tmp
   i686:

@@ -120,7 +120,7 @@ $(foreach d,$(SRCDIR) $(LIBDIR) $(INCLUDEDIR),$(eval $(call dir_rule,$(d))))
 
 $(JULIADIR):
 ifeq ($(OS),WINNT)
-	appveyor DownloadFile $(JULIA_URL) -FileName C:\projects\julia-binary.exe
+	cmd //c "appveyor DownloadFile $(JULIA_URL) -FileName C:\projects\julia-binary.exe"
 	touch $@
 else ifeq ($(OS),Darwin)
 	curl -s -L --retry 7 -o julia.dmg $(JULIA_URL)
