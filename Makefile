@@ -15,7 +15,7 @@ OPENLIBM_VERS := 0.5.4
 ifeq ($(OS),Windows_NT)
 override OS := WINNT
 JULIA_EXE := /cygdrive/c/projects/julia/bin/julia
-JULIA_SHLIB_DIR := /cygdrive/c/projects/julia/lib/julia
+JULIA_SHLIB_DIR := $(dir $(JULIA_EXE))
 else
 override OS := $(shell uname)
 JULIA_EXE := $(JULIADIR)/bin/julia
