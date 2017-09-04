@@ -120,7 +120,7 @@ $(foreach d,$(SRCDIR) $(LIBDIR) $(INCLUDEDIR),$(eval $(call dir_rule,$(d))))
 
 $(JULIADIR):
 ifeq ($(OS),WINNT)
-	cmd //c "appveyor DownloadFile $(JULIA_URL) -FileName C:\projects\julia-binary.exe"
+	# Julia is downloaded separately in AppVeyor
 	touch $@
 else ifeq ($(OS),Darwin)
 	curl -s -L --retry 7 -o julia.dmg $(JULIA_URL)
@@ -169,8 +169,8 @@ $(USRDIR)/lib/libopenspecfun.$(SHLIB_EXT): $(LIBDIR)/libopenspecfun.$(SHLIB_EXT)
 
 $(ROOTDIR)/$(TARBALL): $(USRDIR)/lib/libopenspecfun.$(SHLIB_EXT)
 ifeq ($(OS),WINNT)
-	chdir $(dir $@)
-	7z a $(TARBALL) usr
+	cd $(dir $@)
+	cmd /C "7z a $(TARBALL) usr"
 else
 	(cd $(dir $@); $(TAR) -cvzf $@ usr)
 endif
