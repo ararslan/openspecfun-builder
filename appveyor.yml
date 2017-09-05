@@ -21,7 +21,7 @@ init:
   - ps: "[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12"
 install:
   - appveyor DownloadFile https://cygwin.com/setup-x86_64.exe -FileName C:\projects\cygwin-setup-x86_64.exe
-  - C:\projects\cygwin-setup-x86_64.exe -q -g -P make,mingw64-i686-gcc-core,mingw64-x86_64-gcc-core
+  - C:\projects\cygwin-setup-x86_64.exe -q -g -P make,mingw64-i686-gcc-core,mingw64-x86_64-gcc-core,mingw64-i686-gcc-fortran,mingw64-x86_64-gcc-fortran
   - appveyor DownloadFile %JULIA_URL% -FileName C:\projects\julia-binary.exe
   - set PATH="C:\Program Files\7-Zip"
 before_build:
