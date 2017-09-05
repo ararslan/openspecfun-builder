@@ -53,7 +53,8 @@ JULIA_URL := https://julialangnightlies-s3.julialang.org/bin/$(URL_OS)/$(URL_ARC
 TARBALL := libopenspecfun-$(OPENSPECFUN_VERS)-$(OUT_OS)-$(ARCH).$(ZIP_EXT)
 
 ifneq (,$(findstring CYGWIN,$(shell uname)))
-FC := $(shell uname -m)-w64-mingw32-gfortran
+FC := $(ARCH)-w64-mingw32-gfortran
+CC := $(ARCH)-w64-mingw32-gcc
 else
 FC := gfortran
 endif
