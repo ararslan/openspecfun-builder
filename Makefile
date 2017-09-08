@@ -160,8 +160,7 @@ $(SRCDIR)/Makefile: $(SRCDIR)/openspecfun-$(OPENSPECFUN_VERS).tar.gz
 
 $(LIBDIR)/libopenspecfun.$(SHLIB_EXT): $(SRCDIR)/Makefile $(INCLUDEDIR)/openlibm/openlibm.h $(LIBDIR)/libopenlibm.$(SHLIB_EXT)
 	$(MAKE) -C $(dir $<) install $(OPENSPECFUN_FLAGS) $(MAKE_FLAGS)
-ifeq ($(OS),Darwin)
-	# FIXME: This was `ifneq ($(OS),WINNT)`; Linux image doesn't have patchelf
+ifneq ($(OS),WINNT)
 	$(ROOTDIR)/fixup-libgfortran.sh -v $(dir $@)
 endif
 
@@ -172,7 +171,7 @@ $(USRDIR)/lib/libopenspecfun.$(SHLIB_EXT): $(LIBDIR)/libopenspecfun.$(SHLIB_EXT)
 $(ROOTDIR)/$(TARBALL): $(USRDIR)/lib/libopenspecfun.$(SHLIB_EXT)
 ifeq ($(OS),WINNT)
 	cd $(dir $@)
-	cmd /C "7z a $(TARBALL) usr"
+	cmd.exe /C "7z a $(TARBALL) usr"
 else
 	(cd $(dir $@); $(TAR) -cvzf $@ usr)
 endif

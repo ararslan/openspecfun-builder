@@ -112,8 +112,8 @@ change_linkage()
         old_link=$(find_shlib "$lib_path" "$soname")
         echo " $old_link"
         install_name_tool -change "$old_link" "@rpath/$soname" "$lib_path"
-    else # $UNAME is "Linux", we only have two options, see above
-        patchelf --set-rpath \$ORIGIN "$lib_path"
+    #else # $UNAME is "Linux", we only have two options, see above
+    #    patchelf --set-rpath \$ORIGIN "$lib_path"
     fi
 }
 

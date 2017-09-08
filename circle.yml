@@ -10,9 +10,7 @@ jobs:
       - checkout
       - run:
           name: Build
-          command: |
-            #yum install -y patchelf
-            make
+          command: make
       - run:
           name: Package
           command: |
